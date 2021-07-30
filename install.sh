@@ -41,9 +41,8 @@ install_aplications(){
 
 configurations(){
     echo 'INSTALLING ICONS AND THEME'
-    wget -qO- https://git.io/papirus-icon-theme-install | DESTDIR="$HOME/.icons" sh
-    gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
     sudo dnf install gnome-shell-theme-flat-remix -y
+    gsettings set org.gnome.desktop.interface icon-theme "Flat-Remix-Blue-Dark"
     gsettings set org.gnome.desktop.interface gtk-theme "Flat-Remix-GTK-Blue-Dark"
 
     echo 'EXTENSIONS FOR VISUAL STUDIO CODE'
@@ -66,23 +65,22 @@ configurations(){
     mkdir "$HOME/Projects"
     cd "$HOME/Projects"
 
-    list_repositories=("https://github.com/marcoswb/script-pos-install.git" "https://github.com/marcoswb/youtube_downloader.git" "https://github.com/marcoswb/personal-site.git")
+    list_repositories=("https://github.com/marcoswb/youtube_downloader.git" "https://github.com/marcoswb/personal-site.git")
     for repo in "${list_repositories[@]}"
     do
         git clone $repo
     done
 
-    echo "THEME TERMINAL"
+    echo "INSTALLING ZSH"
+    sudo dnf install zsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    chsh -s $(which zsh)
+
+    echo "INSTALLING TERMINAL THEME"
     git clone https://github.com/dracula/gnome-terminal
     cd gnome-terminal
     ./install.sh
 }
 
-finish(){
-    echo 'RESTART SYSTEM'
-    reboot
-}
-
 install_aplications
 configurations
-finish
