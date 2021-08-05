@@ -1,42 +1,50 @@
 #!/usr/bin/env bash
 
 install_aplications(){
-    echo 'INSTALLING SPOTIFY(1/8)'
+    echo 'INSTALLING SPOTIFY(1/9)'
     sudo dnf install -y flatpak
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     sudo flatpak install flathub com.spotify.Client -y
 
-    echo 'INSTALLING VIRTUALBOX(2/8)'
+    echo 'INSTALLING VIRTUALBOX(2/9)'
     sudo wget -v https://download.virtualbox.org/virtualbox/6.1.22/VirtualBox-6.1-6.1.22_144080_fedora33-1.x86_64.rpm -O virtualbox.rpm
     sudo dnf install SDL -y
     sudo rpm -U virtualbox.rpm
     sudo dnf install kernel-devel -y
     sudo sudo dnf install dkms -y
 
-    echo 'INSTALLING VAGRANT(3/8)'
+    echo 'INSTALLING VAGRANT(3/9)'
     sudo wget -v https://releases.hashicorp.com/vagrant/2.2.15/vagrant_2.2.15_x86_64.rpm -O vagrant.rpm
     sudo rpm -U vagrant.rpm
 
-    echo 'INSTALLING SIMPLENOTE(4/8)'
-    sudo wget -v https://github.com/Automattic/simplenote-electron/releases/download/v2.12.0/Simplenote-linux-2.12.0-x86_64.rpm -O simplenote.rpm
-    sudo rpm -U simplenote.rpm
+    echo 'INSTALLING BITWARDEN(4/9)'
+    sudo wget -v https://vault.bitwarden.com/download/?app=desktop&platform=linux&variant=rpm -O bitwarden.rpm
+    sudo rpm -U bitwarden.rpm
 
-    echo 'INSTALLING ONLYOFFICE(5/8)'
+    echo 'INSTALLING ONLYOFFICE(5/9)'
     sudo wget -v https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors.x86_64.rpm?_ga=2.56345773.764533964.1595236576-1157782750.1587541027 -O onlyoffice.rpm
     sudo dnf install liberation-narrow-fonts -y
     sudo rpm -U onlyoffice.rpm
 
-    echo 'INSTALLING GIMP(6/8)'
+    echo 'INSTALLING GIMP(6/9'
     sudo dnf install gimp -y
 
-    echo 'INSTALLING GIT(7/8)'
+    echo 'INSTALLING GIT(7/9'
     sudo dnf install git -y
 
-    echo 'INSTALLING VISUAL STUDIO CODE(8/8)'
+    echo 'INSTALLING VISUAL STUDIO CODE(8/9)'
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
     sudo dnf check-update
     sudo dnf install code -y
+
+    echo 'INSTALLING WEBAPP NOTION(9/9)'
+    mkdir "$HOME/WebApps"
+    cd "$HOME/WebAppps"
+    sudo dnf install nodejs npm -y
+    sudo npm install nativefier -g
+    nativefier --name "Notion" https://www.notion.so/ 
+
 }
 
 configurations(){
