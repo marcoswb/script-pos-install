@@ -127,22 +127,6 @@ Oh My Zsh installation may also prompt for interactive confirmation, depending o
 - After completion, log out and back in (or reboot) so the default shell change from `chsh` takes effect.
 - Notion is packaged with Nativefier; the app is created under `$HOME/WebApps` (see known issues below regarding the working directory).
 
-## Tests
-
-This repository does not include automated tests.
-
-## Known issues and limitations
-
-Based on the current `install.sh`:
-
-- **Hardcoded package versions:** VirtualBox `6.1.22` (Fedora 33 RPM) and Vagrant `2.2.15` may be outdated or incompatible with newer kernels/distros.
-- **Path typo for Notion:** the script creates `$HOME/WebApps` but then changes directory to `$HOME/WebAppps` before running Nativefier.
-- **GNOME-only assumptions:** `gsettings` theme changes and the Dracula GNOME Terminal installer will not apply on non-GNOME desktops.
-- **No error handling:** failed downloads or installs do not stop the script; later steps still run.
-- **Interactive only:** Git identity and Oh My Zsh setup require user input; there is no non-interactive/CI mode.
-- **Requires root via sudo:** not suitable for unprivileged environments.
-- **Duplicate `sudo`:** the DKMS install line uses `sudo sudo dnf install dkms -y`.
-
 ## License
 
 MIT License. Copyright (c) 2021 Marcos Warmling Berti. See [LICENSE](LICENSE).
